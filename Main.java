@@ -1,41 +1,43 @@
-/*
-* Autori: Karol Antonini, Mattia De Angelis
-* Classe: 4bI
-* Data: 23/01/24
-* */
-public class Main {
-    public static void main(String[] args) throws InterruptedException {
-       Cantante c1= new Cantante("tenore", "DUCA"," Bella figlia dell'amore,\n" +
-               "Schiavo son dei vezzi tuoi;\n" +
-               "Con un detto sol tu puoi\n" +
-               "Le mie pene consolar.\n" +
-               "Vieni e senti del mio core\n" +
-               "Il frequente palpitar.");
+import java.util.Random;
 
-       Cantante c2 = new Cantante("contralto", "MADDALENA", "Ah! ah! rido ben di core,\n" +
-               "Che tai baie costan poco\n" +
-               "Quanto valga il vostro gioco,\n" +
-               "Mel credete, so apprezzar.\n" +
-               "Son avvezza, bel signore,\n" +
-               "Ad un simile scherzar.");
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Random random = new Random();
+        Carta[] mazzo= new Carta[5];
+        char[] semi={'q','p','c','f'};
+        int[] nummero={1,2,3,4,5,6,7,8,9,10,11,12,13};
+        for(int a=0;a<5;a++)
+        {
+            int num = random.nextInt(nummero.length);
+            int seme= random.nextInt(semi.length);
+            mazzo[a]= new Carta(semi[seme],nummero[num]);
+        }
+        System.out.println("prima mano del giocatore");
+        for (Carta carte : mazzo)
+        {
+            System.out.println("carta\t" + carte.toString());
+        }
+        for (int i = 0; i < mazzo.length; i++)
+        {
+            for (int b = 0; b < mazzo.length; b++)
+            {
+                if (mazzo[i].getSeme() == mazzo[b].getSeme() && mazzo[i].getNummerro() == mazzo[b].getNummerro() && i != b)
+                {
+                    System.out.println("trovata carta " + mazzo[i].toString());
+                    int num = random.nextInt(nummero.length);
+                    int seme = random.nextInt(semi.length);
+                    mazzo[i] = new Carta(semi[seme], nummero[num]);
+                    System.out.println("carta sostituita con " + mazzo[i].toString());
+                    b = 0;
 
-       Cantante c3= new Cantante("soprano", "GILDA", "Ah, così parlar d'amore\n" +
-               "A me pur l'infame ho udito!\n" +
-               "Infelice cor tradito,\n" +
-               "Per angoscia non scoppiar.");
-
-       Cantante c4 = new Cantante("baritono", "RIGOLETTO", "Taci, il piangere non vale...\n" +
-               "Ch'ei mentiva sei sicura.\n" +
-               "Taci, e mia sarà la cura\n" +
-               "La vendetta d'affrettar.\n" +
-               "Sì, pronta fia, sarà fatale,\n" +
-               "Io saprollo fulminar.");
-
-       c1.start();
-       c1.join();
-       c2.start();
-       c2.join();
-       c3.start();
-       c4.start();
+                }
+            }
+        }
+        System.out.println("mano finale di carte");
+        for (Carta carte : mazzo) {
+            System.out.println("carta\t" + carte.toString());
+        }
     }
 }
